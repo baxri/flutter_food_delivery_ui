@@ -12,27 +12,68 @@ class RecentOrders extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
           border: Border.all(width: 1, color: Colors.grey[200])),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: Image.asset(
-              order.food.imageUrl,
-              fit: BoxFit.cover,
-              width: 100,
-              height: 100,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
+          Expanded(
+            child: Row(
               children: [
-                Text(order.food.name),
-                Text(order.restaurant.name),
-                Text(order.date)
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Image.asset(
+                    order.food.imageUrl,
+                    fit: BoxFit.cover,
+                    width: 100,
+                    height: 100,
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(order.food.name,
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                            overflow: TextOverflow.ellipsis),
+                        SizedBox(
+                          height: 2,
+                        ),
+                        Text(
+                          order.restaurant.name,
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w600),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(
+                          height: 2,
+                        ),
+                        Text(
+                          order.date,
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w600),
+                          overflow: TextOverflow.ellipsis,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
+          ),
+          Container(
+            margin: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+                color: Theme.of(ctx).primaryColor,
+                borderRadius: BorderRadius.circular(24)),
+            child: IconButton(
+                icon: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                onPressed: () {}),
           )
         ],
       ),
@@ -54,8 +95,10 @@ class RecentOrders extends StatelessWidget {
         ),
         Container(
           height: 120,
-          // color: Colors.blue,
           child: ListView.builder(
+              // This thins is only for android to make bounceing effect
+              physics: BouncingScrollPhysics(),
+              padding: EdgeInsets.symmetric(horizontal: 10),
               scrollDirection: Axis.horizontal,
               itemCount: currentUser.orders.length,
               itemBuilder: (ctx, i) {

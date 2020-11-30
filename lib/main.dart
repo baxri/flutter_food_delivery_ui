@@ -15,6 +15,9 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.grey[50],
           primaryColor: Colors.deepOrangeAccent),
       home: HomeScreen(),
+      routes: {
+        // RestaurantScreen.routeName: (_) => RestaurantScreen(),
+      },
     );
   }
 }
